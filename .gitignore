@@ -1,0 +1,27 @@
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Logs
+*.log
+
+# User-specific files
+*.user
+*.rsuser
+
+# Secrets / local settings
+appsettings.Development.json
