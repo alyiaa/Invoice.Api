@@ -1,7 +1,6 @@
-﻿
-namespace Invoice.Infrastructure.Entities
+﻿namespace Invoice.Domain.Entities
 {
-    public partial class ViewUnifiedInvoice
+    public class InvoiceEntity
     {
         public int Id { get; set; }
         public long InvoiceNumber { get; set; }

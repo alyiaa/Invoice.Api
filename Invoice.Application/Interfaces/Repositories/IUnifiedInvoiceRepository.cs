@@ -1,5 +1,4 @@
-﻿
-namespace Invoice.Application.Interfaces
+﻿namespace Invoice.Application.Interfaces.Repositories
 {
 
     public interface IUnifiedInvoiceRepository

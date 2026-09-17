@@ -1,4 +1,4 @@
-﻿namespace Invoice.Application.DTOS
+﻿namespace Invoice.Application.DTOS.Invoice
 {
     public class InvoiceCurrencyDto
     {
