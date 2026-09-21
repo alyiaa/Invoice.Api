@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Invoice.Application.Interfaces.Services
 {
-    internal class IInvoiceService
+    public interface IInvoiceService
     {
+        Task<List<InvoiceDto>> GetInvoicesAsync(
+            DateTime? date = null,
+            long? invoiceNumber = null,
+            short? agencyNumber = null);
     }
 }

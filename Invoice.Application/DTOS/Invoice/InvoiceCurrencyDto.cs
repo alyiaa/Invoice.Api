@@ -2,10 +2,10 @@
 {
     public class InvoiceCurrencyDto
     {
-        public string? Currency { get; set; }
+        public decimal? Currency { get; set; }
 
-        public decimal Dl { get; set; }
+        public decimal? Dl { get; set; }
 
-        public decimal Le { get; set; }
+        public decimal? Le { get; set; }
     }
 }

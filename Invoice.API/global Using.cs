@@ -1,0 +1,12 @@
+﻿global using Microsoft.EntityFrameworkCore;
+global using System.Text;
+global using Microsoft.OpenApi.Models;
+global using System.Globalization;
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
+global using Microsoft.AspNetCore.Mvc;
+global using Swashbuckle.AspNetCore.SwaggerGen;
+global using Microsoft.AspNetCore.Authorization;
+global using System.Security.Claims;
+global using Invoice.Application.Interfaces.Repositories;
+global using Invoice.Infrastructure.Entities;

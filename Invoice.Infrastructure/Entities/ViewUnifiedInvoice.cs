@@ -1,4 +1,6 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
 namespace Invoice.Infrastructure.Entities
 {
     public partial class ViewUnifiedInvoice
@@ -11,8 +13,8 @@ namespace Invoice.Infrastructure.Entities
         public decimal? Le { get; set; }
         public int VesselImo { get; set; }
         public string? VesselName { get; set; }
-        public short? AgencyNumber { get; set; }
-        public byte? Currency { get; set; }
+        public int? AgencyNumber { get; set; }
+        public int? Currency { get; set; }
         public decimal? GrossTonnage { get; set; }
         public decimal? NetTonnage { get; set; }
     }
