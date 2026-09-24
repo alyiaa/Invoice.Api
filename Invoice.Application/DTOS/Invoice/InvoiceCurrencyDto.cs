@@ -1,11 +1,14 @@
-﻿namespace Invoice.Application.DTOS.Invoice
+﻿using System.Text.Json.Serialization;
+
+namespace Invoice.Application.DTOS.Invoice
 {
     public class InvoiceCurrencyDto
     {
-        public decimal? Currency { get; set; }
+        [JsonIgnore]
+        public byte? CurrencyCode { get; set; }
+        public string? CurrencyName { get; set; }=string.Empty;
+        public decimal? ForeignCurrencyAmount { get; set; }
 
-        public decimal? Dl { get; set; }
-
-        public decimal? Le { get; set; }
+        public decimal? EgyptianPoundAmount { get; set; }
     }
 }

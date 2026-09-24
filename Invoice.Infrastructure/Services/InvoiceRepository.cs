@@ -9,58 +9,45 @@ namespace Invoice.Infrastructure.Repositories
     public class InvoiceRepository : IInvoiceRepository
     {
         private readonly ModelContext _context;
-
-        public InvoiceRepository(ModelContext context)
+        private readonly IMapper _mapper;
+        public InvoiceRepository(ModelContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+
         }
 
         public async Task<List<InvoiceDto>> GetInvoicesAsync(
-            DateTime? date = null,
-            long? invoiceNumber = null,
-            short? agencyNumber = null)
+                   DateTime? date = null,
+                   long? invoiceNumber = null,
+                   short? agencyNumber = null)
         {
             var query = _context.ViewUnifiedInvoices
                 .AsNoTracking()
                 .AsQueryable();
 
+            // Filter by invoice date
             if (date.HasValue)
             {
                 query = query.Where(x =>
                     x.InvoiceDate.Date == date.Value.Date);
             }
 
+            // Filter by invoice number
             if (invoiceNumber.HasValue)
             {
                 query = query.Where(x =>
                     x.InvoiceNumber == invoiceNumber.Value);
             }
 
+            // Filter by agency number
             if (agencyNumber.HasValue)
             {
                 query = query.Where(x =>
                     x.AgencyNumber == agencyNumber.Value);
             }
 
-            var data = await query
-                .Select(x => new
-                {
-                    x.Id,
-                    x.InvoiceNumber,
-                    x.InvoiceDate,
-                    x.TravelDate,
-                    x.Dl,
-                    x.Le,
-                    x.VesselImo,
-                    x.VesselName,
-                    x.AgencyNumber,
-                    Currency = x.Currency.HasValue
-                        ? (decimal?)x.Currency.Value
-                        : null,
-                    x.GrossTonnage,
-                    x.NetTonnage
-                })
-                .ToListAsync();
+            var data = await query.ToListAsync();
 
             var result = data
                 .GroupBy(x => new
@@ -74,33 +61,28 @@ namespace Invoice.Infrastructure.Repositories
                     x.GrossTonnage,
                     x.NetTonnage
                 })
-                .Select(g => new InvoiceDto
+                .Select(g =>
                 {
-                    Id = g.First().Id,
+                    var invoice = _mapper.Map<InvoiceDto>(g.First());
 
-                    InvoiceNumber = g.Key.InvoiceNumber,
-                    InvoiceDate = g.Key.InvoiceDate,
-                    TravelDate = g.Key.TravelDate,
-
-                    VesselImo = g.Key.VesselImo,
-                    VesselName = g.Key.VesselName,
-
-                    AgencyNumber = g.Key.AgencyNumber,
-
-                    GrossTonnage = g.Key.GrossTonnage,
-                    NetTonnage = g.Key.NetTonnage,
-
-                    Currencies = g
-                        .GroupBy(x => x.Currency)
+                    invoice.Currencies = g
+                        .GroupBy(x => new
+                        {
+                            x.CurrencyCode,
+                            x.Currency
+                        })
                         .Select(c => new InvoiceCurrencyDto
                         {
-                            Currency = c.Key,
-
-                            Dl = c.Sum(x => x.Dl ?? 0),
-                            Le = c.Sum(x => x.Le ?? 0)
+                            CurrencyCode = c.Key.CurrencyCode,
+                            CurrencyName = c.Key.Currency ?? string.Empty,
+                            ForeignCurrencyAmount = c.Sum(x => x.Dl ?? 0),
+                            EgyptianPoundAmount = c.Sum(x => x.Le ?? 0)
                         })
-                        .ToList()
+                        .ToList();
+
+                    return invoice;
                 })
+                .OrderBy(x => x.InvoiceDate)
                 .ToList();
 
             return result;

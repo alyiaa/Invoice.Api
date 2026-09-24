@@ -15,7 +15,8 @@ namespace Invoice.API.Controllers
             _invoiceService = invoiceService;
         }
 
-        [HttpGet]
+        [HttpGet("GetInvoices")]
+
         public async Task<IActionResult> GetInvoices(
             DateTime? date = null,
             long? invoiceNumber = null,

@@ -10,3 +10,4 @@ global using Microsoft.AspNetCore.Authorization;
 global using System.Security.Claims;
 global using Invoice.Application.Interfaces.Repositories;
 global using Invoice.Infrastructure.Entities;
+global using Invoice.Infrastructure.Mapping;

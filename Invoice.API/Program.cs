@@ -32,8 +32,10 @@ builder.Services.AddDbContext<ModelContext>(options =>
 // ==========================================================
 // Infrastructure
 // ==========================================================
-
-
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<InvoiceProfile>();
+});
 // ==========================================================
 // HttpContextAccessor
 // ==========================================================

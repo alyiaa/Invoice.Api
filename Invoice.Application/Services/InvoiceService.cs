@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 namespace Invoice.Application.Services
 {
-
-
         public class InvoiceService : IInvoiceService
         {
             private readonly IInvoiceRepository _invoiceRepository;
@@ -30,4 +28,4 @@ namespace Invoice.Application.Services
                     agencyNumber);
             }
         }
-    }
+}

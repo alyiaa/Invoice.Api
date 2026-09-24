@@ -13,8 +13,9 @@ namespace Invoice.Infrastructure.Entities
         public decimal? Le { get; set; }
         public int VesselImo { get; set; }
         public string? VesselName { get; set; }
-        public int? AgencyNumber { get; set; }
-        public int? Currency { get; set; }
+        public short? AgencyNumber { get; set; }
+        public byte? CurrencyCode { get; set; }
+        public string? Currency { get; set; }
         public decimal? GrossTonnage { get; set; }
         public decimal? NetTonnage { get; set; }
     }

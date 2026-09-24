@@ -39,12 +39,17 @@ namespace Invoice.Infrastructure.Entities
                 entity.ToView("VIEW_UNIFIED_INVOICES");
 
                 entity.Property(e => e.AgencyNumber)
-                    .HasPrecision(10)
+                    .HasPrecision(5)
                     .HasColumnName("AGENCY_NUMBER");
 
                 entity.Property(e => e.Currency)
-                    .HasPrecision(10)
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
                     .HasColumnName("CURRENCY");
+
+                entity.Property(e => e.CurrencyCode)
+                    .HasPrecision(3)
+                    .HasColumnName("CURRENCY_CODE");
 
                 entity.Property(e => e.Dl)
                     .HasColumnType("NUMBER")
