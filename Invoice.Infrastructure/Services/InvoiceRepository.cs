@@ -17,7 +17,7 @@ namespace Invoice.Infrastructure.Repositories
 
         }
 
-        public async Task<List<InvoiceDto>> GetInvoicesAsync(
+        public async Task<InvoiceResponseDto> GetInvoicesAsync(
                    DateTime? date = null,
                    long? invoiceNumber = null,
                    short? agencyNumber = null)
@@ -85,7 +85,21 @@ namespace Invoice.Infrastructure.Repositories
                 .OrderBy(x => x.InvoiceDate)
                 .ToList();
 
-            return result;
+            var totals = new InvoiceTotalDto
+            {
+                TotalCurrencyAmount = result
+          .SelectMany(x => x.Currencies)
+          .Sum(x => x.ForeignCurrencyAmount ?? 0),
+
+                TotalPoundAmount = result
+          .SelectMany(x => x.Currencies)
+          .Sum(x => x.EgyptianPoundAmount ?? 0)
+            };
+            return new InvoiceResponseDto
+            {
+                Invoices = result,
+                Totals = totals
+            } ;
         }
     }
 }

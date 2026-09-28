@@ -48,7 +48,7 @@ namespace Invoice.Infrastructure.Entities
                     .HasColumnName("CURRENCY");
 
                 entity.Property(e => e.CurrencyCode)
-                    .HasPrecision(3)
+                    .HasColumnType("NUMBER(18,2)")
                     .HasColumnName("CURRENCY_CODE");
 
                 entity.Property(e => e.Dl)

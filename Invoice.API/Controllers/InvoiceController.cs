@@ -1,4 +1,6 @@
-﻿using Invoice.Application.Interfaces;
+﻿using Invoice.Application.DTOs.ApiResponse;
+using Invoice.Application.DTOS.Invoice;
+using Invoice.Application.Interfaces;
 using Invoice.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,7 +29,7 @@ namespace Invoice.API.Controllers
                 invoiceNumber,
                 agencyNumber);
 
-            return Ok(result);
+            return Ok(ApiResponse<InvoiceResponseDto>.SuccessResponse(result,"Invoices retrieved successfully"));
         }
     }
 }

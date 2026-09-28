@@ -17,7 +17,7 @@ namespace Invoice.Application.Services
                 _invoiceRepository = invoiceRepository;
             }
 
-            public async Task<List<InvoiceDto>> GetInvoicesAsync(
+            public async Task<InvoiceResponseDto> GetInvoicesAsync(
                 DateTime? date = null,
                 long? invoiceNumber = null,
                 short? agencyNumber = null)
